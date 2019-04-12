@@ -1,5 +1,6 @@
 package dev.elshaarawy.permissions.delegator
 
+import android.content.Context
 import android.os.Build
 import androidx.fragment.app.Fragment
 import java.lang.ref.WeakReference
@@ -13,9 +14,9 @@ internal class FragmentPermissionsRequester(
     vararg permissions: String
 ) : PermissionsRequester(requestCode, *permissions) {
 
-    override fun withPermission(
+    override fun applyWithPermission(
         onRequestPermissions: (List<String>) -> Unit,
-        onAllGranted: () -> Unit
+        onAllGranted: Context.() -> Unit
     ) {
         this.onAllGranted = onAllGranted
         fragment.get()?.context?.run {
@@ -39,7 +40,7 @@ internal class FragmentPermissionsRequester(
         fragment.get()?.context?.also {
             val (isGranted, unGrantedPermissions) = it.guaranteePermissions()
             if (requestCode == this.requestCode && isGranted) {
-                onAllGranted()
+                it.onAllGranted()
             } else if (requestCode == this.requestCode) {
                 onAllDenied(unGrantedPermissions)
             }

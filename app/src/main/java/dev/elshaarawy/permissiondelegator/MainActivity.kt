@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        cameraPermissionsDelegate.withPermission {
+        cameraPermissionsDelegate.applyWithPermission {
             Toast.makeText(this, "Guaranteed Camera Permission", Toast.LENGTH_LONG).show()
         }
 
