@@ -1,5 +1,27 @@
 # Permissions-Delegator
 
+```kotlin
+class MainActivity : AppCompatActivity() {
+
+    private val cameraPermissionsDelegate by PermissionsDelegate(43, Manifest.permission.CAMERA)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        cameraPermissionsDelegate.applyWithPermission {
+            Toast.makeText(this, "Guaranteed Camera Permission", Toast.LENGTH_LONG).show()
+        }
+
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        cameraPermissionsDelegate.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+}
+```
+
 License
 =======
     Copyright (C) 2019 Mohamed Elshaarawy
