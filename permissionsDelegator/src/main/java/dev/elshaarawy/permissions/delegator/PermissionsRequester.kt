@@ -38,6 +38,6 @@ abstract class PermissionsRequester(protected val requestCode: Int, private vara
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray,
-        onAllDenied: (List<String>) -> Unit
+        onAllDenied: (List<String>) -> Unit={}
     )
 }
